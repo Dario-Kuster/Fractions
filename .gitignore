@@ -2,3 +2,4 @@
 obj
 *.csproj
 *.code-workspace
+Fractions.runtimeconfig.dev.json

@@ -4,13 +4,13 @@ namespace Fractions
 {
     public struct Fraction
     {
-        public int denominator;
-        public int numerator;
+        public int Denominator { get; set; }
+        public int Numerator { get; set; }
 
-        public Fraction(int _numerator, int _denominator)
+        public Fraction(int numerator, int denominator)
         {
-            this.denominator = _denominator;
-            this.numerator = _numerator;
+            Denominator = denominator;
+            Numerator = numerator;
         }
 
         public static Fraction operator +(Fraction a, Fraction b)
@@ -19,22 +19,23 @@ namespace Fractions
 
             for(int i = 2; true; i++)
             {
-                if (i % a.denominator == 0 && i % b.denominator == 0)
+                if (i % a.Denominator == 0 && i % b.Denominator == 0)
                 {
-                    a.numerator *= i / a.denominator;
-                    a.denominator = i;
+                    a.Numerator *= i / a.Denominator;
+                    a.Denominator = i;
 
-                    b.numerator *= i / b.denominator;
-                    b.denominator = i;
+                    b.Numerator *= i / b.Denominator;
+                    b.Denominator = i;
 
-                    c.denominator = a.denominator;
-                    c.numerator = a.numerator + b.numerator;
+                    c.Denominator = a.Denominator;
+                    c.Numerator = a.Numerator + b.Numerator;
 
                     break;
                 }
             }
 
-            return Fraction.Reduce(c);
+            c.Reduce();
+            return c;
         }
 
         public static Fraction operator -(Fraction a, Fraction b)
@@ -43,59 +44,66 @@ namespace Fractions
 
             for(int i = 2; true; i++)
             {
-                if (i % a.denominator == 0 && i % b.denominator == 0)
+                if (i % a.Denominator == 0 && i % b.Denominator == 0)
                 {
-                    a.numerator *= i / a.denominator;
-                    a.denominator = i;
+                    a.Numerator *= i / a.Denominator;
+                    a.Denominator = i;
 
-                    b.numerator *= i / b.denominator;
-                    b.denominator = i;
+                    b.Numerator *= i / b.Denominator;
+                    b.Denominator = i;
 
-                    c.denominator = a.denominator;
-                    c.numerator = a.numerator - b.numerator;
+                    c.Denominator = a.Denominator;
+                    c.Numerator = a.Numerator - b.Numerator;
 
                     break;
                 }
             }
 
-            return Fraction.Reduce(c);
+            c.Reduce();
+            return c;
         }
 
         public static Fraction operator *(Fraction a, Fraction b)
         {
-            return Fraction.Reduce(new Fraction(a.numerator * b.numerator, a.denominator * b.denominator));
+            Fraction c = new Fraction(a.Numerator * b.Numerator, a.Denominator * b.Denominator);
+            c.Reduce();
+            
+            return c;
         }
 
         public static Fraction operator /(Fraction a, Fraction b)
         {
-            b = Fraction.Reverse(b);
-            return Fraction.Reduce(new Fraction(a.numerator * b.numerator, a.denominator * b.denominator));
+            b.Reverse();
+            Fraction c = new Fraction(a.Numerator * b.Numerator, a.Denominator * b.Denominator);
+            c.Reduce();
+
+            return c;
         }
 
-        private static Fraction Reduce(Fraction a)
+        public void Reduce()
         {
-            for(int i = 2; i <= a.denominator; i++)
+            for(int i = 2; i <= Denominator; i++)
             {
-                if (a.denominator % i == 0 && a.numerator % i == 0)
+                if (Denominator % i == 0 && Numerator % i == 0)
                 {
-                    a.denominator /= i;
-                    a.numerator /= i;
+                    Denominator /= i;
+                    Numerator /= i;
                     
                     i = 1;
                 }
             }
-
-            return a;
         }
 
-        public static Fraction Reverse(Fraction a)
+        public void Reverse()
         {
-            return new Fraction(a.denominator, a.numerator);
+            int temp = Denominator;
+            Denominator = Numerator;
+            Numerator = temp;
         }
 
         public void Print()
         {
-            Console.WriteLine(this.numerator + " / " + this.denominator);
+            Console.WriteLine(Numerator + " / " + Denominator);
         }
     }
 }

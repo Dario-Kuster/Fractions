@@ -16,17 +16,17 @@ namespace Fractions
                 try
                 {
                     Console.Write("Enter numerator: ");
-                    a.numerator = Convert.ToInt32(Console.ReadLine());
+                    a.Numerator = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Enter denominator: ");
-                    a.denominator = Convert.ToInt32(Console.ReadLine());
+                    a.Denominator = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
                     Console.Write("Enter operator: ");
                     _operator = Console.ReadLine();
                     Console.WriteLine();
                     Console.Write("Enter second numerator: ");
-                    b.numerator = Convert.ToInt32(Console.ReadLine());
+                    b.Numerator = Convert.ToInt32(Console.ReadLine());
                     Console.Write("Enter second denominator: ");
-                    b.denominator = Convert.ToInt32(Console.ReadLine());
+                    b.Denominator = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine();
@@ -57,7 +57,9 @@ namespace Fractions
                     default:
                         Console.WriteLine(_operator + " Is an invalid operator");
                         Console.ReadKey();
-                        return;
+                        Console.Clear();
+
+                        continue;
                 }
 
                 result.Print();
