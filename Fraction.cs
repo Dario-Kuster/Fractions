@@ -16,23 +16,16 @@ namespace Fractions
         public static Fraction operator +(Fraction a, Fraction b)
         {
             Fraction c = new Fraction(0, 0);
+            int commmonDenominator = FindCommonDenominator(a, b);
 
-            for(int i = 2; true; i++)
-            {
-                if (i % a.Denominator == 0 && i % b.Denominator == 0)
-                {
-                    a.Numerator *= i / a.Denominator;
-                    a.Denominator = i;
+            a.Numerator *= commmonDenominator / a.Denominator;
+            a.Denominator = commmonDenominator;
 
-                    b.Numerator *= i / b.Denominator;
-                    b.Denominator = i;
+            b.Numerator *= commmonDenominator / b.Denominator;
+            b.Denominator = commmonDenominator;
 
-                    c.Denominator = a.Denominator;
-                    c.Numerator = a.Numerator + b.Numerator;
-
-                    break;
-                }
-            }
+            c.Denominator = a.Denominator;
+            c.Numerator = a.Numerator + b.Numerator;
 
             c.Reduce();
             return c;
@@ -41,23 +34,16 @@ namespace Fractions
         public static Fraction operator -(Fraction a, Fraction b)
         {
             Fraction c = new Fraction(0, 0);
+            int commmonDenominator = FindCommonDenominator(a, b);
 
-            for(int i = 2; true; i++)
-            {
-                if (i % a.Denominator == 0 && i % b.Denominator == 0)
-                {
-                    a.Numerator *= i / a.Denominator;
-                    a.Denominator = i;
+            a.Numerator *= commmonDenominator / a.Denominator;
+            a.Denominator = commmonDenominator;
 
-                    b.Numerator *= i / b.Denominator;
-                    b.Denominator = i;
+            b.Numerator *= commmonDenominator / b.Denominator;
+            b.Denominator = commmonDenominator;
 
-                    c.Denominator = a.Denominator;
-                    c.Numerator = a.Numerator - b.Numerator;
-
-                    break;
-                }
-            }
+            c.Denominator = a.Denominator;
+            c.Numerator = a.Numerator - b.Numerator;
 
             c.Reduce();
             return c;
@@ -78,6 +64,17 @@ namespace Fractions
             c.Reduce();
 
             return c;
+        }
+
+        public static int FindCommonDenominator(Fraction a, Fraction b)
+        {
+            for(int i = 2; true; i++)
+            {
+                if (i % a.Denominator == 0 && i % b.Denominator == 0)
+                {
+                    return i;
+                }
+            }
         }
 
         public void Reduce()
